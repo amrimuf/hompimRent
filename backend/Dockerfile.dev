@@ -1,0 +1,20 @@
+# Development Dockerfile
+FROM golang:1.22
+
+# Install Air for live reloading
+RUN go install github.com/air-verse/air@latest
+
+# Set the working directory
+WORKDIR /app
+
+# Copy go mod and sum files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy the source code
+COPY . .
+
+# Command to run the application in development mode
+CMD ["air"]
