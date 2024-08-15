@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"log"
+	"time"
 
 	"github.com/amrimuf/hompimRent/controllers"
 	"github.com/amrimuf/hompimRent/database"
@@ -33,6 +34,7 @@ func (a *App) Bootstrap() {
     a.db = db
 
 	a.server.Use(middleware.ErrorLogger())
+	a.server.Use(middleware.RateLimit(5, time.Minute))
 
 	// Initialize repositories
 	listingRepo := repositories.NewListingRepository(db)
