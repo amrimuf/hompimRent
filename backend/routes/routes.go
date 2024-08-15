@@ -7,10 +7,12 @@ import (
 
 type Controllers struct {
     ListingController *controllers.ListingController
+	UserController *controllers.UserController
+	AuthController *controllers.AuthController
 }
 
 func SetupRoutes(app *fiber.App, c Controllers) {
-	AuthRoutes(app)      
-	UserRoutes(app) 
+	AuthRoutes(app, c.AuthController)      
+	UserRoutes(app, c.UserController) 
 	ListingRoutes(app, c.ListingController)
 }

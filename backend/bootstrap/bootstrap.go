@@ -33,16 +33,23 @@ func (a *App) Bootstrap() {
 
 	// Initialize repositories
 	listingRepo := repositories.NewListingRepository(db)
+	userRepository := repositories.NewUserRepository(db)
 
 	// Initialize services
 	listingService := services.NewListingService(listingRepo)
+	userService := services.NewUserService(userRepository)
+	authService := services.NewAuthService(userRepository)
 
 	// Initialize controllers
 	listingController := controllers.NewListingController(listingService)
+	userController := controllers.NewUserController(userService)
+	authController := controllers.NewAuthController(authService)
 
 	// Setup routes
 	ctrl := routes.Controllers{
 		ListingController: listingController,
+		UserController: userController,
+		AuthController: authController,
 	}
 	routes.SetupRoutes(a.server, ctrl)
 
