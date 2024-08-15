@@ -5,6 +5,7 @@ import (
 
 	"github.com/amrimuf/hompimRent/controllers"
 	"github.com/amrimuf/hompimRent/database"
+	"github.com/amrimuf/hompimRent/middleware"
 	"github.com/amrimuf/hompimRent/repositories"
 	"github.com/amrimuf/hompimRent/routes"
 	"github.com/amrimuf/hompimRent/services"
@@ -30,6 +31,8 @@ func (a *App) Bootstrap() {
         log.Fatalf("Unable to connect to database: %v\n", err)
     }
     a.db = db
+
+	a.server.Use(middleware.ErrorLogger())
 
 	// Initialize repositories
 	listingRepo := repositories.NewListingRepository(db)
