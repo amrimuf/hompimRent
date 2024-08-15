@@ -32,12 +32,11 @@ func JWTMiddleware() fiber.Handler {
             })
         }
 
-        // Attach user information to context (optional)
-        if userID, ok := claims["user_id"].(string); ok {
-            c.Locals("user_id", userID)
+        if role, ok := claims["role"].(string); ok {
+            c.Locals("role", role)
         } else {
-            return c.Status(http.StatusUnauthorized).JSON(fiber.Map{
-                "error": "Invalid token payload",
+            return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+                "error": "Unauthorized: role not found",
             })
         }
 
