@@ -5,12 +5,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func ListingRoutes(app *fiber.App, listingCtrl *controllers.ListingController) {
-    listingGroup := app.Group("/listings")
-
-    listingGroup.Post("/", listingCtrl.CreateListing)
-    listingGroup.Get("/", listingCtrl.GetAllListings)
-    listingGroup.Get("/:id", listingCtrl.GetListingByID)
-    listingGroup.Put("/:id", listingCtrl.UpdateListing)
-    listingGroup.Delete("/:id", listingCtrl.DeleteListing)
+func ListingRoutes(router fiber.Router, listingCtrl *controllers.ListingController) {
+    router.Post("/", listingCtrl.CreateListing)
+    router.Get("/", listingCtrl.GetAllListings)
+    router.Get("/:id", listingCtrl.GetListingByID)
+    router.Put("/:id", listingCtrl.UpdateListing)
+    router.Delete("/:id", listingCtrl.DeleteListing)
 }

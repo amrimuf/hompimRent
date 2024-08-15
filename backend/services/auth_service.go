@@ -2,6 +2,7 @@ package services
 
 import (
 	"errors"
+	"os"
 	"time"
 
 	"github.com/amrimuf/hompimRent/models"
@@ -58,7 +59,9 @@ func (s *AuthService) generateJWT(user *models.User) (string, error) {
         "exp":     time.Now().Add(time.Hour * 72).Unix(),
     })
 
-    tokenString, err := token.SignedString([]byte("your-secret-key"))
+    secretKey := os.Getenv("JWT_SECRET")
+
+    tokenString, err := token.SignedString([]byte(secretKey))
     if err != nil {
         return "", err
     }
