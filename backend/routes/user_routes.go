@@ -5,6 +5,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupUserRoutes(app *fiber.App) {
+func UserRoutes(app *fiber.App) {
 	app.Get("/api/users", controllers.GetUsers)
 }

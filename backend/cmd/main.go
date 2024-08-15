@@ -1,32 +1,27 @@
 package main
 
 import (
-	"github.com/amrimuf/hompimRent/database"
-	"github.com/amrimuf/hompimRent/routes"
-	"github.com/gofiber/fiber/v2"
-    
-    "log"
+	"log"
 	"os"
+
+	"github.com/amrimuf/hompimRent/bootstrap"
 )
 
 func main() {
-    app := fiber.New()
+    app := bootstrap.NewApp()
+    app.Bootstrap()
 
-    database.ConnectDB()
+	port := getPort()
+	log.Printf("Server starting on port %s\n", port)
+    if err := app.Start(":" + port); err != nil {
+        log.Fatalf("Server failed to start: %v", err)
+    }
+}
 
-    routes.SetupRoutes(app)
-
-    port := os.Getenv("PORT")
+func getPort() string {
+	port := os.Getenv("PORT")
 	if port == "" {
 		port = "3000"
 	}
-    app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
-	})
-
-    log.Printf("Server starting on port %s\n", port)
-    err := app.Listen(":" + port)
-    if err != nil {
-        log.Fatalf("Server failed to start: %v", err)
-    }
+	return port
 }
