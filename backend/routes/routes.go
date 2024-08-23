@@ -21,6 +21,6 @@ func SetupRoutes(app *fiber.App, c Controllers) {
 	userGroup := app.Group("/users")
 	UserRoutes(userGroup, c.UserController) 
 	
-	listingGroup := app.Group("/listings")
+	listingGroup := app.Group("/protected/listings")
 	ListingRoutes(listingGroup, c.ListingController)
 }

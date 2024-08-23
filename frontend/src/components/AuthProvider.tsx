@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from "react";
 import { AuthContextType, LoginCredentials } from "../types/interfaces";
-import { login as authLogin } from "./Auth/authService";
+import { login as authLogin } from "../services/authService";
 
 export const AuthContext = createContext<AuthContextType | undefined>(
 	undefined
@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 		const token = localStorage.getItem("jwtToken");
 		return !!token;
 	});
-
 
 	const login = async (credentials: LoginCredentials) => {
 		try {

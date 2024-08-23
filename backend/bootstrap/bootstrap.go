@@ -41,7 +41,7 @@ func (a *App) Bootstrap() {
 	a.server.Use(cors.New(cors.Config{
 		AllowOrigins: os.Getenv("CORS_ALLOW_ORIGINS"),
 		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
-		AllowHeaders: "Origin, Content-Type, Accept",
+		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
 	}))
 
 	// Initialize repositories

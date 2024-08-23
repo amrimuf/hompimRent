@@ -34,7 +34,14 @@ function App() {
 							</ProtectedRoute>
 						}
 					/>
-					<Route path="/listings" element={<ListingDisplay />} />
+					<Route
+						path="/listings"
+						element={
+							<ProtectedRoute>
+								<ListingDisplay />
+							</ProtectedRoute>
+						}
+					/>
 					<Route path="/logout" element={<Logout />} />
 				</Routes>
 			</div>
