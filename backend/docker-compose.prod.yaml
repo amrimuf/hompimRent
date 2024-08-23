@@ -12,6 +12,7 @@ services:
             - JWT_SECRET=${JWT_SECRET}
             - PORT=${PORT:-3000}
             - REDIS_ADDR=redis:6379
+            - CORS_ALLOW_ORIGINS=${CORS_ALLOW_ORIGINS}
         depends_on:
             db:
                 condition: service_healthy

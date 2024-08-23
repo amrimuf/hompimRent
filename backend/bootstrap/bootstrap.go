@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"log"
+	"os"
 	"time"
 
 	"github.com/amrimuf/hompimRent/controllers"
@@ -11,6 +12,7 @@ import (
 	"github.com/amrimuf/hompimRent/routes"
 	"github.com/amrimuf/hompimRent/services"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
@@ -35,6 +37,12 @@ func (a *App) Bootstrap() {
 
 	a.server.Use(middleware.ErrorLogger())
 	a.server.Use(middleware.RateLimit(500, time.Minute))
+
+	a.server.Use(cors.New(cors.Config{
+		AllowOrigins: os.Getenv("CORS_ALLOW_ORIGINS"),
+		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 
 	// Initialize repositories
 	listingRepo := repositories.NewListingRepository(db)
