@@ -6,7 +6,7 @@ A backend service for a rental system, built with Go and PostgreSQL. This servic
 
 -   **Docker:** Ensure Docker and Docker Compose are installed. You can follow the installation guide at [Docker Documentation](https://docs.docker.com/get-docker/).
 -   **Go:** Version 1.18 or later is recommended. [Go Installation Guide](https://golang.org/doc/install).
--   **`golang-migrate`:** Migration tool for managing database schema changes. [golang-migrate Installation Guide](https://github.com/golang-migrate/migrate#installation).
+  
 
 ## Setup
 
@@ -17,25 +17,7 @@ git clone https://github.com/amrimuf/hompimrent.git
 cd hompimrent
 ```
 
-### 2. Install `golang-migrate`
-
-Follow these steps to install `golang-migrate`:
-
-1. **Download and Install:**
-
-    ```bash
-    wget https://github.com/golang-migrate/migrate/releases/download/v4.18.3/migrate.linux-amd64.tar.gz
-    tar -xvf migrate.linux-amd64.tar.gz
-    sudo mv migrate /usr/local/bin
-    ```
-
-2. **Verify Installation:**
-
-    ```bash
-    migrate -version
-    ```
-
-### 3. Configure Environment Variables
+### 2. Configure Environment Variables
 
 Copy the example environment configuration file to `.env`:
 
@@ -51,7 +33,7 @@ POSTGRES_PASSWORD=your_db_password
 POSTGRES_DB=rental_system
 ```
 
-### 4. Start the Services
+### 3. Start the Services
 
 Run Docker Compose to build and start the services:
 
@@ -61,25 +43,17 @@ docker-compose up --build
 
 This command will start the PostgreSQL database and the backend application.
 
-### 5. Apply Database Migrations
+### 4. Apply Database Migrations
 
-Apply the database migrations to set up the schema:
+To apply database migrations, you can utilize the included migration service without needing to install golang-migrate manually. Just follow these steps:
 
-1. **Access the PostgreSQL Container:**
+```bash
+docker-compose run migrate
+```
 
-    ```bash
-    docker exec -it your_postgres_container_name /bin/bash
-    ```
+This command will automatically run migrations defined in the `./database/migrations` directory.
 
-2. **Run Migrations Using `golang-migrate`:**
-
-    ```bash
-    migrate -path ./database/migrations -database "postgres://user:password@localhost:5432/dbname?sslmode=disable" up
-    ```
-
-Replace `your_postgres_container_name` with the name of your PostgreSQL container and adjust the database connection string as needed.
-
-### 6. Accessing the Application
+### 5. Accessing the Application
 
 -   **API Endpoints:** The application exposes various API endpoints for managing rentals. Check the API documentation for details.
 -   **PostgreSQL Access:** Connect to PostgreSQL using the following command:

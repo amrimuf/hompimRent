@@ -1,5 +1,5 @@
 # Production Dockerfile
-FROM golang:1.22 AS build
+FROM golang:1.23 AS build
 
 # Set environment variables
 ENV CGO_ENABLED=0

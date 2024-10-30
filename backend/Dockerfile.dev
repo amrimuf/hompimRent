@@ -1,5 +1,5 @@
 # Development Dockerfile
-FROM golang:1.22
+FROM golang:1.23
 
 # Install Air for live reloading
 RUN go install github.com/air-verse/air@latest
